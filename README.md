@@ -40,11 +40,7 @@ This is an example repository meant to accompany the building block on debugging
         
 ```
 
-The repository includes src, gen/output and report folders and .gitignore, airbnb_superhost.Rproj, makefile and README.md files. 
 
-Src folder consists of R scripts that can be used to download (download_data.R), clean (cleaning.R)  the and analyze (analysis.R) the data. In additon to the R scripts, a makefile to run all the codes in the folder automatically can be found in src folder. When the code in download_data.R is run, a new folder, including the raw dataset will be created.  Gen folder has a sub-folder named output, and it shows the tables/graphs for the descriptive statistics and table for the regression outputs. The report folder includes Rmarkdown, which shows tables and graphs that are created when doing the analysis and gives overall information about the project, variables, methodology, discussion and results. 
-
-README.md file, includes information about the project motivation, analysis, results and the repository structure while .gitignore file states the files to be ignored by Git. Lastly, Airbnb data.Rproj offers some project options can make Rstudio customized.
 
 ## Running instructions
 
