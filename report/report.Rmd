@@ -1,0 +1,177 @@
+---
+title: 'AirBnB Superhosts: Are You REALLY Super?'
+author: 'Roshini Sudhaharan, Hoan Van Nguyen, Gijs van Heumen, Sezen Birkan & BilgeKasapoğlu'
+output: html_document
+
+---
+
+<style>
+body {
+text-align: justify}
+</style>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+<center>
+![](https://user-images.githubusercontent.com/90349323/137727230-a117e84d-0de0-48b1-9e77-0fa531ddf58d.png)
+</center>
+# 1. Introduction
+
+In this project, we conduct a study into prospective profits that a superhost badge could deliver to AirBnB hosts. Specifically, we look into the following question
+
+***To what extent do AirBnb listings’ charges and superhost status influence their guests’ review and ratings after booking?***
+
+This project is a replication study from [Liang, Schukert, Law and Chen (2017)](https://www.sciencedirect.com/science/article/pii/S0261517717300079).Central in this research is to show the importance of badge systems for peer-to-peer rental accommodations, especially in the gamification design adopted by AirBnB. In short, unlike  other sites and services using the badge systems for accommodation guests to encourage their knowledge sharing about the owners, AirBnB offers superhost badges to accommodation owners instead. We therefore would like to investigate whether such gamification design is effective or not in stimulating the guests to post reviews and ratings about the owners (even without such badges).
+
+Replicating [Liang et al. (2017)]( https://www.sciencedirect.com/science/article/pii/S0261517717300079), we target AirBnB market in Amsterdam, the Netherlands to see if their results still hold. In a similar vein, we hypothesize that *accommodations with the superhost badge tend to receive more reviews and higher ratings*. Granted a superhost badge, the accommodation owners could make use of its advertising effect ([Ghose & Yang, 2009]( https://pubsonline.informs.org/doi/abs/10.1287/mnsc.1090.1054), [Stephen & Galak, 2012]( https://journals.sagepub.com/doi/full/10.1509/jmr.09.0401)) and the accumulated positive ratings ([Tanford, Raab & Kim, 2012]( https://www.sciencedirect.com/science/article/pii/S0278431911000636), [Vermeulen & Seegers, 2009](https://www.sciencedirect.com/science/article/pii/S0261517708000824))to attract more attention, more bookings and more reviews. At the same time, the superhost owners will likely filter their guests carefully to avoid spiteful evaluations. Also, they will likely devote their time and energy to improving the quality of their accommodations so as to satisfy their guests’ demands and maintain their badge, thus receive higher ratings in comparison to ordinary hosts. 
+
+In addition, it must be acknowledged that review volume and rating levels depends on how much the accommodation owners charge their guests as well. Price plays a negative role in consumer purchasing and booking decisions ([Dodds, Monroe & Grewal, 1991]( https://journals.sagepub.com/doi/10.1177/002224379102800305), [Han & Hyun, 2015](https://www.sciencedirect.com/science/article/pii/S0261517714001058), [Jiang & Rosenbloom, 2005](https://www.emerald.com/insight/content/doi/10.1108/03090560510572061/full/html), [Wang, Lu, Chi & Shi, 2015](https://www.scopus.com/record/display.uri?eid=2-s2.0-84933525289&origin=inward&featureToggles=FEATURE_VIEW_PDF:1,FEATURE_DOC_DETAILS_TOOLBAR:1)). And due to the fact that AirBnB does not allow guests without bookings to post reviews about accommodation owners, it often happens that the owners will not receive many reviews if they charge top dollars for their accommodations. Nevertheless, higher price means higher quality, not only because of the psychological perceptions the guests might have towards expensive services ([Zeithaml, 1998](https://www.scopus.com/record/display.uri?eid=2-s2.0-85104704298&origin=inward&featureToggles=FEATURE_VIEW_PDF:1,FEATURE_DOC_DETAILS_TOOLBAR:1)) but also because of the cost incurred to maintain top quality for the accommodations. For such quality, the owners’ pricey listings will likely receive higher ratings. In accordance with these arguments, we hypothesize that *accommodations with a higher price tend to receive fewer reviews but higher ratings*. 
+
+Lastly, since the superhost badge indicates a recommendation by AirBnB, it diminishes perceived risk amongst potential guests with little prior knowledge upon booking the accommodations with premium prices ([Netemeyer et al., 2004](https://www.sciencedirect.com/science/article/pii/S0148296301003034)). In other words, we anticipate that prospective guests will likely pay more in return for the added values from the superhost status ([Garbarino & Strahilevitz, 2004](https://www.sciencedirect.com/science/article/pii/S0148296302003636)), and as a result, the listings will receive more reviews. We thus hypothesize that *the negative association of price and review volume can be positively moderated by the superhost status*. On the other hand, in the relationship between price and ratings, the superhost badge does not necessarily exert any influence. Whilst the badge generates some added brand value, listings at any price – whether high or low – can secure the badge as long as the owner is willing to invest towards their facilities and quality ([Miyazaki, Grewal & Goodstein, 2005](https://academic.oup.com/jcr/article/32/1/146/1796321)). We then hypothesize that *the association of price and ratings is not significantly moderated by the superhost badge*.
+
+Visualizing the hypotheses above, we have the following conceptual framework
+
+<center>
+**Figure 1: Conceptual Model**
+
+![](https://user-images.githubusercontent.com/90349323/137526313-7daea82b-dadb-48d6-ba96-2ae5428a7c14.png)
+</center>
+
+# 2. Data
+
+We collected the secondary data from [insideairbnb.com](http://insideairbnb.com/). The listing dataset is drawn for Amsterdam, the Netherlands for replication purpose.
+
+Based on our conceptual framework, we cleaned and filtered out outliers and unnecessary variables. The final dataset consists of 16 variables and 11830 observations. We have two dependent variables for the study: *number of reviews* and *ratings* for the properties listed. As for the independent variables, we have *price* (in dollars), *superhost status*. Since there could be other factors that may affect the number of reviews and ratings, we control for the *presence of profile picture* and the *verification status of the host*, *capacity of the property*, *number of rooms*, *number of beds*, *minimum nights to stay*, *bookability status*, and *room type*.
+
+## 2.1 Variable Description
+
+### 2.1.1 Dependent Variables
+
+*nrreview*       : Number of reviews shows how many reviews a listing has.
+
+*rating*         : It shows the star-rating given to the listing by the people who rented the property before.
+
+
+
+### 2.1.2 Independent Variables
+
+*price*          : Daily price of the property in dollars
+
+*superhost*      : Dummy variable that shows the superhost status (=1 if superhost, =0 otherwise.)
+
+### 2.1.3 Control Variables
+
+*picture*        : Dummy variable that shows whether the host has a profile pic (=1 if yes, =0 otherwise)
+
+*verification*   : Dummy variable that shows whether host's identity is verified (=1 if yes, =0 otherwise)
+
+*entire_home_apt*: Dummy variable that shows the room is entire home apartment  (=1 if yes, =0 otherwise)
+
+*hotel_room*     : Dummy variable that shows the room is a hotel room  (=1 if yes, =0 otherwise)
+
+*share_room*     : Dummy variable that shows the room is shared with other people (=1 if yes, =0 otherwise)
+
+*capacity*       : The maximum number of people that can stay in the property
+
+*nrroom*         : Number of bedrooms in the property
+ 
+*nrbed*          : Number of beds in the property
+
+*minnight*       : Minimum number of night stay for the listing
+
+*bookability*    :Dummy variable that shows whether the property is available for booking immediately (=1 if yes, =0 otherwise)
+
+
+## 2.2 Descriptive Statistics
+After removal of outliers, we are left with 11,830 observations among which only around 13% hosts have earned the "Superhost" badge. The average price( in $) of accomodations offered by superhosts is 148.23(SD = 74.72) while for ordinary hosts it is 144.61 (SD = 66.75). The average rating for listings with superhost badges is 4.87(SD = 0.15) and 4.67 (SD = 0.69) for other normal listings. The average number of reviews is 49.02 (SD = 46.45) for superhost listings and 16.77(SD = 24.71) for normal hosts' listings. 
+
+<center>
+**Figure 2: Descriptive Statistics of Ordinary Hosts**
+
+```{r showChoro1, echo=FALSE, warning=FALSE}
+htmltools::includeHTML("../gen/output/ordinary_hosts.html")
+```
+<br>
+
+**Figure 3: Descriptive Statistics of Superhosts**
+```{r echo=FALSE}
+htmltools::includeHTML("../gen/output/super_hosts.html")
+```
+</center>
+# 3. Analysis
+
+## 3.1 Review Volume Model: Effects of Price and Superhost Status on Number of Reviews
+To examine the effect of AirBnb's listing price and superhost status on the review volume, we estimate the negative binomial model of ([Cameron & Trivedi,1986](https://onlinelibrary.wiley.com/doi/abs/10.1002/jae.3950010104)) as the number of reviews is a count variable and this model helps overcome the disadvantage of the Poisson Regression Model assumption of the equality of conditional mean and variance functions which doesn't hold in this case.
+
+<center>
+**Figure 4: Density distribution of review volume by superhost status**
+```{r echo=FALSE}
+knitr::include_graphics('../gen/output/plot_nrreviews.png')
+
+```
+</center>
+
+## 3.2 Rating Model: Effects of Price and Superhost Status on Ratings
+To examine the effect of AirBnb's listing price and superhost status on the review valence which is indicated by the rating, we estimate a Tobit model ([Tobin,1958](https://www.jstor.org/stable/1907382?origin=crossref&seq=1#metadata_info_tab_contents)) for two reasons. Firstly, due to the censored nature of the sample as the rating for each listing is a continuous variable ranging from 1 to 5. Secondly, there is a potential selection problem as the number of higher ratings would be larger as most of the guests are likely to choose accommodations carefully for a quality experience and choose listings after consulting pre-existing online reviews. 
+
+<center>
+**Figure 5: Density distribution of ratings by superhost status**
+```{r echo=FALSE}
+knitr::include_graphics('../gen/output/plot_rating.png')
+
+```
+</center>
+
+# 4. Results 
+
+## 4.1 Review Volume Model
+The negative binomial regression estimation results show that a unit increase in price increases the incident rate of number of reviews by 1% which is in contrast to our hypothesis that accommodations with higher prices tend to receive fewer reviews. However, the effect size is very small (b = .0005, p = .005). The incident rate for superhosts is 2.7 times that of ordinary costs ( b = 1.00, p < .001) which supports our conjecture that accommodations with the superhost badge tend to get more reviews. Furthermore, the coefficient of the interaction term suggests that when the host has superhost status, a unit increase in price decreases the incident rate of reviews by 1% ( b = -.001, p = .006). Hence, superhost status does have a significant moderating effect albeit a negative one. 
+
+Probing into some of the control variables, we see that hosts with pictures are associated with an incident rate 1.7 times more than those without ( b = 0.536, p = 0.02), the incident rate for verified hosts is 1.45 times more ( b = .375, p < .001), a unit increase in capacity is associated with 1.06% increase in incident rate ( b = .066, p < .001), a unit increase in the number of rooms per accommodation is associated with a decrease in incident rate of around 23% (b = -.257, p < .001), a unit increase in minimum night is associated with 2% decrease in the incident rate (b = -.013, p = .01) and the incident rate for entire home type decreases by around 45% relative to private room type (b = -.609, p < .001). 
+
+<center>
+**Figure 6: Comparing model estimates with and without outliers** 
+
+```{r echo=FALSE}
+htmltools::includeHTML("../gen/output/review_model.html")
+
+```
+<br>
+
+**Figure 7: Incident Ratios of the model (without outliers)**
+```{r echo=FALSE}
+htmltools::includeHTML("../gen/output/review_IR.html")
+```
+</center>
+
+## 4.2 Rating Model
+Price is positively associated with rating, although the effect size is quite small (b = .0009, p < .001). Hosts with superhost status are associated higher ratings than  ordinary hosts ( b = 0.22, p < .001). The interaction term between price and superhost status is insignificant which is in line with our hypothesis that the association of price and rating is not significantly moderated by the superhost status. 
+
+Looking further into the control variables, hosts with a picture(b = .78, p < .001) and verified (b = .08, p < .001) are positively associated with ratings. Surprisingly, the instant bookable feature is negatively associated with ratings (b = -.09, p < .001). Entire home types are associated with more positive ratings relative to the baseline private room type ( b = .12, p < .001). A unit increase in the minimum nights offered per listing ( b = .02, p < .001), number of rooms ( b = .09, p < .001) is positively associated with rating while an increase in capacity( b = -.08, p < .001) and number of beds offered ( -.02, p = .04) is negatively associated with rating. 
+
+<center>
+**Figure 8: Tobit model estimation results wihout outliers**
+```{r echo=FALSE}
+htmltools::includeHTML("../gen/output/tobit1.html")
+```
+<br>
+
+**Figure 9: Tobit model estimation results with outliers** 
+```{r echo=FALSE}
+htmltools::includeHTML("../gen/output/tobit2.html")
+```
+</center>
+
+# 5. Conclusion
+This replication study examined to what extend the superhost status and the price of the property affects the number of reviews and the rating of a listing on AirBnB. As opposed to [Liang et al. (2017)]( https://www.sciencedirect.com/science/article/pii/S0261517717300079) , we found that a listing with a higher price is more likely to receive a higher number of reviews. However, when the host has the superhost status, the listing is more likely to receive more reviews. In addition, the significant negative moderating effect of being a super host shows that users are relatively more sensitive to higher prices of superhost listings. However, it must be noted that the effect size of the moderating effect and the positive main effect of price is very small making it difficult to conclude that when a host increases the price, the number of reviews will be lower and that when a superhost increase the price, the reviews will be lower than when a host increases the price.
+
+Not only the reviews but also the rating of the listing is affected by the price. The listings with higher prices are more likely to receive higher ratings. The results of our Tobit model suggest that being a superhost affects the ratings positively. However, being a superhost does not affect the positive relationship between ratings and price. More specifically, when a host increases the prices, the ratings that the listing has will not be affected by the superhost status.
+
+It may also be important to mention that profile features of the host such as having a profile picture, verified account make incident rates and the ratings more likely to increase. Thus, it would be a good idea for hosts to put more effort into their profiles on AirBnB. One surprising finding that we noticed is that listings, which are available for instant booking are less likely to receive higher ratings. 
+
+In this research, we did not examine the valence of the reviews. It would also be interesting to see how bad and good reviews affect superhosts compared to the other hosts. Moreover, future research may look more into the negative effect of instant bookability on ratings to shed a light on this surprising effect.
+
+
+## Acknowledgement
+We would like to thank you [dr. Hannes Datta](https://github.com/hannesdatta), an associate professor at the Department of Marketing, Tilburg School of Economics and Management for helping us implement this project.
