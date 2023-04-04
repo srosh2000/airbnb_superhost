@@ -52,7 +52,7 @@ To replicate the workflow of the AirBnb_Superhosts project, please follow the in
  
 *install.packages(c("tidyverse", "dplyr", "lubridate", "gtsummary", "readr", "expss", "plyr", "stringr", "MASS", "ggplot2", "VGAM", "olsrr", "stargazer", "sjPlot", "xtable"))* 
 
-5. Download the *src* folder with all the R scripts from the AirBnb_Superhosts root repository to a path of your liking
+5. Download the *src* folder with all the R scripts from the airBnb_superhosts root repository to a path of your liking
 6. Download *makefile* in the root of the repository to the same path as the *src* folder
 7. Open the command prompt and navigate to the path with both the *src* folder and *makefile* included
 8. Type *"make"* and press return to generate the workflow 
